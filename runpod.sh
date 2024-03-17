@@ -3,8 +3,8 @@ git clone https://github.com/xfactlab/orpo.git
 cd orpo
 sed -i 's/num_processes: 2/num_processes: 1/' ./src/accelerate/fsdp.yaml
 sed -i 's/--num_proc", default=8/--num_proc", default=1/' ./src/args.py
-!wandb login $WANDB_TOKEN
-!wandb init -p $MODEL_ID
+wandb login $WANDB_TOKEN
+wandb init -p $MODEL_ID
 accelerate launch --config_file ./src/accelerate/fsdp.yaml main.py \
     --lr $LEARNING_RATE \
     --warmup_steps 100 \
