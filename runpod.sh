@@ -1,8 +1,10 @@
 pip install datasets accelerate wandb transformers bitsandbytes
 git clone https://github.com/xfactlab/orpo.git
-curl -O -L https://gist.githubusercontent.com/abideenml/fc9edf20f51b27310c2f0faa63007fc8/raw/wandb.py
-python wandb.py --WANDB $WANDB_TOKEN
+!wandb login $WANDB_TOKEN
+!wandb init -p $MODEL_ID
 cd orpo
+sed -i 's/num_processes: 2/num_processes: 1/' ./src/accelerate/fsdp.yaml
+sed -i 's/--num_proc", default=8/--num_proc", default=1/' ./src/args.py
 accelerate launch --config_file ./src/accelerate/fsdp.yaml main.py \
     --lr $LEARNING_RATE \
     --warmup_steps 100 \
@@ -15,3 +17,7 @@ accelerate launch --config_file ./src/accelerate/fsdp.yaml main.py \
     --per_device_eval_batch_size 4 \
     --gradient_accumulation_steps 1 \
     --num_proc 1
+cd $OUTPUT
+cd */
+huggingface-cli login --token $TOKEN
+huggingface-cli upload $NEW_MODEL . .
