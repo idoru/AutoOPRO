@@ -1,4 +1,4 @@
-pip install datasets accelerate wandb transformers bitsandbytes
+pip install datasets accelerate wandb transformers bitsandbytes sentencepiece
 git clone https://github.com/xfactlab/orpo.git
 cd orpo
 sed -i 's/num_processes: 2/num_processes: 1/' ./src/accelerate/fsdp.yaml
