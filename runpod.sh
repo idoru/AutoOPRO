@@ -1,8 +1,13 @@
-pip install datasets accelerate wandb transformers bitsandbytes sentencepiece
+set -eu
+
+pip install datasets accelerate wandb git+https://github.com/yikangshen/transformers.git bitsandbytes sentencepiece peft
 git clone https://github.com/xfactlab/orpo.git
 cd orpo
-sed -i 's/num_processes: 2/num_processes: 1/' ./src/accelerate/fsdp.yaml
-sed -i 's/--num_proc", default=8/--num_proc", default=1/' ./src/args.py
+sed -i 's/num_processes: 2/num_processes: 4/' ./src/accelerate/fsdp.yaml
+sed -i 's/--num_proc", default=8/--num_proc", default=4/' ./src/args.py
+sed -i 's/gradient_checkpointing=True/gradient_checkpointing=False/' ./main.py
+
+
 wandb login $WANDB_TOKEN
 wandb init -p $WANDB_PROJECT
 accelerate launch --config_file ./src/accelerate/fsdp.yaml main.py \
