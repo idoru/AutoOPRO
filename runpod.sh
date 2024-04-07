@@ -18,9 +18,9 @@ accelerate launch --config_file ./src/accelerate/fsdp.yaml main.py \
     --num_train_epochs $EPOCH \
     --prompt_max_length 128 \
     --response_max_length 2048 \
-    --per_device_train_batch_size 4 \
+    --per_device_train_batch_size 1 \
     --per_device_eval_batch_size 4 \
-    --gradient_accumulation_steps 1 \
+    --gradient_accumulation_steps 4 \
     --num_proc 1
 cd $OUTPUT
 cd */
