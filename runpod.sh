@@ -4,13 +4,14 @@ pip install datasets accelerate wandb git+https://github.com/yikangshen/transfor
 git clone https://github.com/xfactlab/orpo.git
 cd orpo
 sed -i 's/num_processes: 2/num_processes: 4/' ./src/accelerate/fsdp.yaml
+sed -i 's/num_processes: 2/num_processes: 4/' ./src/accelerate/ds2.yaml
 sed -i 's/--num_proc", default=8/--num_proc", default=4/' ./src/args.py
 sed -i 's/gradient_checkpointing=True/gradient_checkpointing=False/' ./main.py
 
 
 wandb login $WANDB_TOKEN
 wandb init -p $WANDB_PROJECT
-accelerate launch --config_file ./src/accelerate/fsdp.yaml main.py \
+accelerate launch --config_file ./src/accelerate/ds2.yaml main.py \
     --lr $LEARNING_RATE \
     --warmup_steps 100 \
     --model_name $MODEL_ID \
