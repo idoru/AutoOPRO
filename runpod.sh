@@ -1,6 +1,6 @@
 set -eu
 
-pip install datasets accelerate wandb git+https://github.com/yikangshen/transformers.git bitsandbytes sentencepiece peft
+pip install datasets accelerate deepspeed wandb git+https://github.com/yikangshen/transformers.git bitsandbytes sentencepiece peft
 git clone https://github.com/xfactlab/orpo.git
 cd orpo
 sed -i 's/num_processes: 2/num_processes: 4/' ./src/accelerate/fsdp.yaml
