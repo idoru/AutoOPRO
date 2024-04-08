@@ -11,7 +11,7 @@ wandb init -p $WANDB_PROJECT
 
 set -x
 
-sed -i 's/num_processes: 2/num_processes: '${NUM_GPUS}'/' ./src/accelerate/fsdp.yaml
+sed -i 's/num_processes: 4/num_processes: '${NUM_GPUS}'/' ./src/accelerate/fsdp.yaml
 sed -i 's/num_processes: 2/num_processes: '${NUM_GPUS}'/' ./src/accelerate/ds2.yaml
 sed -i 's/gradient_accumulation_steps: 1/gradient_accumulation_steps: '${GRAD_ACC_STEPS}'/' ./src/accelerate/ds2.yaml
 
