@@ -20,6 +20,9 @@ sed -i 's/--num_proc", default=8/--num_proc", default='${NUM_GPUS}'/' ./src/args
 #Seems like JetMoE doesnt support this
 #sed -i 's/gradient_checkpointing=True/gradient_checkpointing=False/' ./main.py
 
+cat src/accelerate/fsdp.yaml
+cat src/accelerate/ds2.yaml
+
 accelerate launch --config_file ./src/accelerate/fsdp.yaml main.py \
     --lr $LEARNING_RATE \
     --warmup_steps 100 \
